@@ -1,0 +1,68 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>4f79ce92-dc59-49cf-9b07-f76d330a2f7f</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>ScreenAutomation.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <Name>ScreenAutomation</Name>
+    <RootNamespace>ScreenAutomation</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Actions\Action.py" />
+    <Compile Include="Actions\ActionsType.py" />
+    <Compile Include="Actions\ActionManager.py" />
+    <Compile Include="Actions\MouseActions\MouseMoveAction.py" />
+    <Compile Include="Actions\MouseActions\MousePressAction.py" />
+    <Compile Include="Actions\MouseActions\MouseReleaseAction.py" />
+    <Compile Include="Communicator\Communicator.py" />
+    <Compile Include="DesignPatterns\SingletonMeta.py" />
+    <Compile Include="EventRecorder\AutomationRecorder.py" />
+    <Compile Include="EventRecorder\MouseEventRecorder.py" />
+    <Compile Include="Event\Event.py" />
+    <Compile Include="Event\EventDispatcher.py" />
+    <Compile Include="Event\EventProcessor.py" />
+    <Compile Include="Event\EventQueue.py" />
+    <Compile Include="Event\EventTypes.py" />
+    <Compile Include="Event\MouseEvent\MouseEventEnvelop.py" />
+    <Compile Include="Listener\MouseEventsListener.py" />
+    <Compile Include="Listener\MouseListener.py" />
+    <Compile Include="EnableDPISetting.py" />
+    <Compile Include="ScreenAutomation.py" />
+    <Compile Include="Storage\JsonStorage.py" />
+    <Compile Include="Storage\Storage.py" />
+    <Compile Include="Storage\StorageManager.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Actions\" />
+    <Folder Include="Actions\MouseActions\" />
+    <Folder Include="DesignPatterns\" />
+    <Folder Include="EventRecorder\" />
+    <Folder Include="Event\" />
+    <Folder Include="Communicator\" />
+    <Folder Include="Event\MouseEvent\" />
+    <Folder Include="Listener\" />
+    <Folder Include="Storage\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+  <!-- Uncomment the CoreCompile target to enable the Build command in
+       Visual Studio and specify your pre- and post-build commands in
+       the BeforeBuild and AfterBuild targets below. -->
+  <!--<Target Name="CoreCompile" />-->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+</Project>
