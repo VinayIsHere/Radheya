@@ -44,6 +44,7 @@
     <Compile Include="Storage\JsonStorage.py" />
     <Compile Include="Storage\Storage.py" />
     <Compile Include="Storage\StorageManager.py" />
+    <Compile Include="TimeOffset.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Actions\" />
