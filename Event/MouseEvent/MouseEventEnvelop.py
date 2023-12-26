@@ -8,12 +8,7 @@ class MouseEventEnvelop(Event):
         self.button= None
         self.pressed= None
         self.waitingTime= 0
-        #self.waitingTime= None
-        #self.doubleClick= None
-        #self.pressed= None
-        #self.released= None
-        #self.moving= None
-
+        
     def setWaitingTime(self, val):
 
         self.waitingTime= val
@@ -21,6 +16,7 @@ class MouseEventEnvelop(Event):
     def setX(self, val):
         self.x= val
     
+
     def setY(self, val):
         self.y= val
 
@@ -29,6 +25,7 @@ class MouseEventEnvelop(Event):
 
     def setButton(self, val):
         self.button= val
+
 
     def setEventType(self, eventType):
         self.eventType= eventType
@@ -51,14 +48,14 @@ class MouseEventEnvelop(Event):
     def getButton(self):
         return self.button
 
-    #def setDoubleClickEvent(self, val):
-    #    self.doubleClick= val
+def CreateMouseEventEnvelop(x, y, eventtype, ispressed, waitingtime, button):
+    envelop= MouseEventEnvelop()
 
-    #def setPressedEvent(self, val):
-    #    self.pressed= val
+    envelop.setX(x)
+    envelop.setY(y)
+    envelop.setEventType(eventtype)
+    envelop.setPressed(ispressed)
+    envelop.setButton(button)
+    envelop.setWaitingTime(waitingtime)
 
-    #def setReleaseEvent(self, val):
-    #    self.release= val
-
-    #def setMovingElement(self, val):
-    #    self.moving= val
+    return envelop

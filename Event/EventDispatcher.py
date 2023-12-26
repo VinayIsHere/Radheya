@@ -9,6 +9,9 @@ class EventDispatcher(Communicator):
     def __init__(self):
         Communicator.__init__(self)
 
+    def unsubscribeAll(self):
+        self.subscribers.clear()
+
     def unsubscribeEvent(self, subscriber):
         if(len(self.subscribers)== 0):
             return #No subcribers

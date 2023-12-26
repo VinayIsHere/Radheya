@@ -2,7 +2,7 @@ import sys
 sys.path.append("..")
 
 from pynput import mouse
-from Event.MouseEvent.MouseEventEnvelop import MouseEventEnvelop
+from Event.MouseEvent.MouseEventEnvelop import MouseEventEnvelop, CreateMouseEventEnvelop
 from Event import EventDispatcher
 from Event.EventTypes import EventType
 from TimeOffset import TimeOffset
@@ -15,41 +15,41 @@ timeOffsetCalc= TimeOffset(datetime.now())
 def OnClick(x, y, button, pressed):
     global isMousePressed
     
-    #Preparing Event
-    event= MouseEventEnvelop()
-    event.setX(x)
-    event.setY(y)
-    event.setPressed(pressed)
-    event.setButton(button)
-
+    #calculating waiting time
     currtime=datetime.now()
-    event.setWaitingTime(timeOffsetCalc.calculate_time_offset(currtime))
+    waiting_time= timeOffsetCalc.calculate_time_offset(currtime)
     timeOffsetCalc.changeReferenceTime(currtime)
 
+    #setting global mouse_pressed event
     isMousePressed= pressed
 
+    #initializing mouse_event
+    eventtype = None
     if(pressed == True):
-        event.setEventType(EventType.eMousePressEvent)
+        eventtype= EventType.eMousePressEvent
     elif(pressed == False):
-        event.setEventType(EventType.eMouseReleaseEvent)
-        
+        eventtype= EventType.eMouseReleaseEvent
+    
+    #creating event envelop
+    event= CreateMouseEventEnvelop(x, y, eventtype, pressed, waiting_time, button)
+    
     #Sending to Dispatcher
     EventDispatcher.MouseEventDispatcher.publishEvent(event)
 
 def OnMove(x, y):
     global isMousePressed
+    
+    #initializing mouse event
+    event_type= EventType.eMouseMoveEvent
 
-    #Preparing Event
-    event= MouseEventEnvelop()
-    event.setX(x)
-    event.setY(y)
-    event.setEventType(EventType.eMouseMoveEvent)
-    event.setPressed(isMousePressed)
-
+    #calculating waiting time
     currtime=datetime.now()
-    event.setWaitingTime(timeOffsetCalc.calculate_time_offset(currtime))
+    waiting_time=timeOffsetCalc.calculate_time_offset(currtime)
     timeOffsetCalc.changeReferenceTime(currtime)
 
+    #creating event envelop
+    event= CreateMouseEventEnvelop(x, y, event_type, isMousePressed, waiting_time, None) 
+    
     #Sending to dispatcher
     EventDispatcher.MouseEventDispatcher.publishEvent(event)
 

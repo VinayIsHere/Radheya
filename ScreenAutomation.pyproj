@@ -27,6 +27,7 @@
     <Compile Include="Actions\MouseActions\MouseMoveAction.py" />
     <Compile Include="Actions\MouseActions\MousePressAction.py" />
     <Compile Include="Actions\MouseActions\MouseReleaseAction.py" />
+    <Compile Include="ApplicationModes.py" />
     <Compile Include="Communicator\Communicator.py" />
     <Compile Include="DesignPatterns\SingletonMeta.py" />
     <Compile Include="EventRecorder\AutomationRecorder.py" />

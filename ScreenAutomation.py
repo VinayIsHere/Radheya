@@ -13,7 +13,9 @@ from Storage.StorageManager import StorageManager
 import uuid
 import os
 import keyboard
+from ApplicationModes import ApplicationModes
 
+AppMode= ApplicationModes.eOffMode
 
 #Only for Testing purpose, replace it with taking the file name as input from UI.
 def generate_random_filename():
@@ -30,7 +32,7 @@ def generate_random_filename():
 EnableDPISetting.EnableWindowsDPIAware()
 storageManager= StorageManager()
 
-def main():
+def RecordingEventSetup():
 
     global storageManager
 
@@ -52,30 +54,40 @@ def main():
     MouseEventDispatcher.subscribeEvent(EventType.eMousePressEvent, ActivityRecorder)
     MouseEventDispatcher.subscribeEvent(EventType.eMouseReleaseEvent, ActivityRecorder)
     MouseEventDispatcher.subscribeEvent(EventType.eMouseMoveEvent, ActivityRecorder)
-    
-    #with mouse.Listener(
-    #        on_move=MouseListener.OnMove,
-    #        on_click=MouseListener.OnClick,
-    #        ) as MouseListener:
-    #    MouseListener.join()
 
-def startFunctionality():
-    main()
+def startEventRecording():
+    global AppMode
+
+    AppMode= ApplicationModes.eRecordMode | ApplicationModes.eKeyboardAndMouseEventRecordMode
+    RecordingEventSetup()
     MouseEventsListener.InitializeMouseEventsListener()
     MouseEventsListener.StartListeningToMouseEvents()
     print("starting MouseListener")
     
-def stopFunctionality():
-    print("stopping Listening to MouseEvents")
-    MouseEventsListener.StopListeningToMouseEvent()
+def startEventReplaying():
+    print("startEventReplaying")
+    fileToReplay= "4944dc0b-7518-41e5-ad27-5a1fbd6b8b90.json" #this should come from the UI, for now passing from here.
 
+def stopActivities():
+    global AppMode
+
+    if(AppMode == (ApplicationModes.eRecordMode | ApplicationModes.eKeyboardAndMouseEventRecordMode)):
+        MouseEventDispatcher.unsubscribeAll()
+        MouseEventsListener.StopListeningToMouseEvent()
+        print("stopping Listening to MouseEvents")
+    
 def on_key_event(keyboardEvent):
     if(keyboardEvent.event_type == keyboard.KEY_DOWN):
         if(keyboard.is_pressed("ctrl+s")):
-            startFunctionality()
+            startEventRecording()
+        elif(keyboard.is_pressed("ctrl+r")):
+            startEventReplaying()
         elif(keyboard.is_pressed("ctrl+end")):
-            stopFunctionality()
+            stopActivities()
 
-if(__name__ == "__main__"):
+def main():
     keyboard.hook(on_key_event)
     keyboard.wait("esc")
+
+if(__name__ == "__main__"):
+    main()
