@@ -15,6 +15,7 @@ timeOffsetCalc= TimeOffset(datetime.now())
 def OnClick(x, y, button, pressed):
     global isMousePressed
     
+
     #calculating waiting time
     currtime=datetime.now()
     waiting_time= timeOffsetCalc.calculate_time_offset(currtime)

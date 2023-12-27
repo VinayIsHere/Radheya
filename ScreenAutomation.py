@@ -81,7 +81,7 @@ def startEventReplaying():
 
     ActionManagerController.changeCurrentAction(ActionsType.eReplayAction)
 
-    fileToReplay= "4944dc0b-7518-41e5-ad27-5a1fbd6b8b90.json" #this should come from the UI, for now passing from here.
+    fileToReplay= "8be51c7e-ad34-4dbf-93ac-d11915ab0017.json" #this should come from the UI, for now passing from here.
     storageManager.ChangeDataSource("jsonfiles/"+fileToReplay)
 
     storage= JsonStorage(storageManager.GetDataSource())
