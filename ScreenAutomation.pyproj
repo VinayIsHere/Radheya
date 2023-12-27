@@ -30,8 +30,10 @@
     <Compile Include="ApplicationModes.py" />
     <Compile Include="Communicator\Communicator.py" />
     <Compile Include="DesignPatterns\SingletonMeta.py" />
+    <Compile Include="EventReader\EventReader.py" />
     <Compile Include="EventRecorder\AutomationRecorder.py" />
     <Compile Include="EventRecorder\MouseEventRecorder.py" />
+    <Compile Include="EventReplayer\EventReplayer.py" />
     <Compile Include="Event\Event.py" />
     <Compile Include="Event\EventDispatcher.py" />
     <Compile Include="Event\EventProcessor.py" />
@@ -41,6 +43,8 @@
     <Compile Include="Listener\MouseEventsListener.py" />
     <Compile Include="Listener\MouseListener.py" />
     <Compile Include="EnableDPISetting.py" />
+    <Compile Include="Replayer\MouseEventReplayer.py" />
+    <Compile Include="Replayer\MouseReplayer.py" />
     <Compile Include="ScreenAutomation.py" />
     <Compile Include="Storage\JsonStorage.py" />
     <Compile Include="Storage\Storage.py" />
@@ -52,10 +56,13 @@
     <Folder Include="Actions\MouseActions\" />
     <Folder Include="DesignPatterns\" />
     <Folder Include="EventRecorder\" />
+    <Folder Include="EventReplayer\" />
     <Folder Include="Event\" />
     <Folder Include="Communicator\" />
     <Folder Include="Event\MouseEvent\" />
     <Folder Include="Listener\" />
+    <Folder Include="EventReader\" />
+    <Folder Include="Replayer\" />
     <Folder Include="Storage\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

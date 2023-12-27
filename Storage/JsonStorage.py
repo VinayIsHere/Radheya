@@ -17,7 +17,14 @@ class JsonStorage(Storage):
             file.write("\n")
 
     def Read(self):
-        pass
+        events= []
+
+        with open(self._data, 'r') as file:
+            for line in file:
+                event_data= json.loads(line)
+                event= convert_dictionary_to_event(event_data)
+                events.append(event)
+        return events
 
 def convert_event_to_dictionary(event):
     data = {
@@ -56,3 +63,7 @@ def generate_mouse_event_meta_data(event):
 
 def generate_keyboard_event_meta_data(event):
     return ""
+
+def convert_dictionary_to_event(dictEvent):
+    print(dictEvent)
+    return ["a"]

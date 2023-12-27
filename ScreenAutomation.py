@@ -1,9 +1,10 @@
+import json
 import EnableDPISetting
 from Event import EventQueue
 from Listener import MouseEventsListener
 from EventRecorder.AutomationRecorder import AutomationRecorder
 from Event.EventTypes import EventType
-from Event.EventDispatcher import MouseEventDispatcher
+from Event.EventDispatcher import EventsDispatcher
 from EventRecorder.MouseEventRecorder import MouseEventRecorder
 from Actions.MouseActions.MousePressAction import MousePressAction
 from Actions.MouseActions.MouseMoveAction import MouseMoveAction
@@ -14,6 +15,12 @@ import uuid
 import os
 import keyboard
 from ApplicationModes import ApplicationModes
+from EventReader.EventReader import EventReader
+from EventReplayer.EventReplayer import EventReplayer
+from Actions.ActionManager import ActionManagerController
+from Actions.ActionsType import ActionsType
+from Replayer.MouseReplayer import MouseReplayer
+from Replayer.MouseEventReplayer import MouseEventReplayer
 
 AppMode= ApplicationModes.eOffMode
 
@@ -51,12 +58,14 @@ def RecordingEventSetup():
     ActivityRecorder= AutomationRecorder(_mouseEventRecorder)
 
     #Subscribing Events
-    MouseEventDispatcher.subscribeEvent(EventType.eMousePressEvent, ActivityRecorder)
-    MouseEventDispatcher.subscribeEvent(EventType.eMouseReleaseEvent, ActivityRecorder)
-    MouseEventDispatcher.subscribeEvent(EventType.eMouseMoveEvent, ActivityRecorder)
+    EventsDispatcher.subscribeEvent(EventType.eMousePressEvent, ActivityRecorder)
+    EventsDispatcher.subscribeEvent(EventType.eMouseReleaseEvent, ActivityRecorder)
+    EventsDispatcher.subscribeEvent(EventType.eMouseMoveEvent, ActivityRecorder)
 
 def startEventRecording():
     global AppMode
+
+    ActionManagerController.changeCurrentAction(ActionsType.eWriteAction)
 
     AppMode= ApplicationModes.eRecordMode | ApplicationModes.eKeyboardAndMouseEventRecordMode
     RecordingEventSetup()
@@ -65,14 +74,39 @@ def startEventRecording():
     print("starting MouseListener")
     
 def startEventReplaying():
+    global storageManager
     print("startEventReplaying")
+
+    replayer= MouseReplayer()
+
+    ActionManagerController.changeCurrentAction(ActionsType.eReplayAction)
+
     fileToReplay= "4944dc0b-7518-41e5-ad27-5a1fbd6b8b90.json" #this should come from the UI, for now passing from here.
+    storageManager.ChangeDataSource("jsonfiles/"+fileToReplay)
+
+    storage= JsonStorage(storageManager.GetDataSource())
+
+    _mousePressAction= MousePressAction(storage, replayer)
+    _mouseMoveAction= MouseMoveAction(storage, replayer)
+    _mouseReleaseAction= MouseReleaseAction(storage, replayer)
+    
+    mouseReplayer= MouseEventReplayer(_mousePressAction, _mouseMoveAction, _mouseReleaseAction)
+
+    eventReader= EventReader(storage, EventsDispatcher)
+    eventReplayer= EventReplayer(mouseReplayer)
+
+    #Subscribing Events
+    EventsDispatcher.subscribeEvent(EventType.eMousePressEvent, eventReplayer)
+    EventsDispatcher.subscribeEvent(EventType.eMouseReleaseEvent, eventReplayer)
+    EventsDispatcher.subscribeEvent(EventType.eMouseMoveEvent, eventReplayer)
+    
+    eventReader.start()
 
 def stopActivities():
     global AppMode
 
     if(AppMode == (ApplicationModes.eRecordMode | ApplicationModes.eKeyboardAndMouseEventRecordMode)):
-        MouseEventDispatcher.unsubscribeAll()
+        EventsDispatcher.unsubscribeAll()
         MouseEventsListener.StopListeningToMouseEvent()
         print("stopping Listening to MouseEvents")
     

@@ -9,6 +9,10 @@ class Action(ABC):
         pass
 
     @abstractmethod
+    def replayAction(self, event):
+        pass
+
+    @abstractmethod
     def WriteAction(self):
         pass
     

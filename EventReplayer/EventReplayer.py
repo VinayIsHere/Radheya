@@ -4,16 +4,20 @@ sys.path.append("..")
 from Communicator.Communicator import Communicator
 from Event.EventTypes import EventType
 
-class AutomationRecorder(Communicator):
-    def __init__(self, mouseRecorder):
+class EventReplayer(Communicator):
+    def __init__(self, mouseReplayer):
         Communicator.__init__(self)
-        self.MouseEventRecorder= mouseRecorder
-    
+        self._mouseReplayer= mouseReplayer
+
     def subscribeEvent(self, eventtype, subcriber):
-        print("inside subscrive event")
+        print("event replayer subscribe event")
 
     def publishEvent(self, event):
-        print("inside publish event")
+        print("replayer publish event")
+
+    def receive(self, event):
+        if(self.isMouseEvent(event.getEventType())):
+            self._mouseReplayer.receive(event)
 
     def isMouseEvent(self, eventType):
         if(eventType == EventType.eMousePressEvent or
@@ -23,10 +27,3 @@ class AutomationRecorder(Communicator):
             return True
 
         return False
-
-    def receive(self, event):
-        if(self.isMouseEvent(event.eventType)):
-            #print("eventttype:", event.eventType)
-            self.MouseEventRecorder.receive(event)
-        else:
-            pass
