@@ -1,15 +1,13 @@
-import json
-import EnableDPISetting
-from Event import EventQueue
-from Listener import MouseEventsListener
-from Event.EventTypes import EventType
-from Event.EventDispatcher import EventsDispatcher
+from src import EnableDPISetting
+from src.Listener import MouseEventsListener
+from src.Event.EventTypes import EventType
+from src.Event.EventDispatcher import EventsDispatcher
 import keyboard
-from ApplicationModes import ApplicationModes
-from Actions.ActionManager import ActionManagerController
-from Actions.ActionsType import ActionsType
-from EventRecorder import EventRecorderDependencySetup
-from EventReplayer import EventReplayerDependencySetup
+from src.ApplicationModes import ApplicationModes
+from src.Actions.ActionManager import ActionManagerController
+from src.Actions.ActionsType import ActionsType
+from src.EventRecorder import EventRecorderDependencySetup
+from src.EventReplayer import EventReplayerDependencySetup
 
 #Setting application mode to Off Initially.
 AppMode= ApplicationModes.eOffMode

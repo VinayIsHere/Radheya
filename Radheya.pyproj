@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{c80ee67a-4ec7-411a-817d-b80fbdf24062}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>ScreenAutomation.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId>Global|PythonCore|3.12</InterpreterId>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="ScreenAutomation.py" />
+    <Compile Include="src\Actions\Action.py" />
+    <Compile Include="src\Actions\ActionManager.py" />
+    <Compile Include="src\Actions\ActionsType.py" />
+    <Compile Include="src\Actions\MouseActions\MouseMoveAction.py" />
+    <Compile Include="src\Actions\MouseActions\MousePressAction.py" />
+    <Compile Include="src\Actions\MouseActions\MouseReleaseAction.py" />
+    <Compile Include="src\Actions\MouseActions\__init__.py" />
+    <Compile Include="src\Actions\__init__.py" />
+    <Compile Include="src\ApplicationModes.py" />
+    <Compile Include="src\Communicator\Communicator.py" />
+    <Compile Include="src\Communicator\__init__.py" />
+    <Compile Include="src\DesignPatterns\SingletonMeta.py" />
+    <Compile Include="src\DesignPatterns\__init__.py" />
+    <Compile Include="src\EnableDPISetting.py" />
+    <Compile Include="src\EventReader\EventReader.py" />
+    <Compile Include="src\EventReader\__init__.py" />
+    <Compile Include="src\EventRecorder\AutomationRecorder.py" />
+    <Compile Include="src\EventRecorder\EventRecorderDependencySetup.py" />
+    <Compile Include="src\EventRecorder\MouseEventRecorder.py" />
+    <Compile Include="src\EventRecorder\__init__.py" />
+    <Compile Include="src\EventReplayer\EventReplayer.py" />
+    <Compile Include="src\EventReplayer\EventReplayerDependencySetup.py" />
+    <Compile Include="src\EventReplayer\__init__.py" />
+    <Compile Include="src\Event\Event.py" />
+    <Compile Include="src\Event\EventDispatcher.py" />
+    <Compile Include="src\Event\EventProcessor.py" />
+    <Compile Include="src\Event\EventQueue.py" />
+    <Compile Include="src\Event\EventTypes.py" />
+    <Compile Include="src\Event\MouseEvent\MouseEventEnvelop.py" />
+    <Compile Include="src\Event\MouseEvent\__init__.py" />
+    <Compile Include="src\Event\__init__.py" />
+    <Compile Include="src\Helper\UtilityFunctions.py" />
+    <Compile Include="src\Helper\__init__.py" />
+    <Compile Include="src\Listener\MouseEventsListener.py" />
+    <Compile Include="src\Listener\MouseListener.py" />
+    <Compile Include="src\Listener\__init__.py" />
+    <Compile Include="src\Replayer\MouseEventReplayer.py" />
+    <Compile Include="src\Replayer\MouseReplayer.py" />
+    <Compile Include="src\Replayer\__init__.py" />
+    <Compile Include="src\Storage\JsonStorage.py" />
+    <Compile Include="src\Storage\Storage.py" />
+    <Compile Include="src\Storage\StorageManager.py" />
+    <Compile Include="src\Storage\__init__.py" />
+    <Compile Include="src\TimeOffset.py" />
+    <Compile Include="src\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src" />
+    <Folder Include="src\Actions" />
+    <Folder Include="src\Actions\MouseActions" />
+    <Folder Include="src\Communicator" />
+    <Folder Include="src\DesignPatterns" />
+    <Folder Include="src\Event" />
+    <Folder Include="src\EventReader" />
+    <Folder Include="src\EventRecorder" />
+    <Folder Include="src\EventReplayer" />
+    <Folder Include="src\Event\MouseEvent" />
+    <Folder Include="src\Helper" />
+    <Folder Include="src\Listener" />
+    <Folder Include="src\Replayer" />
+    <Folder Include="src\Storage" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="Global|PythonCore|3.12" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>
