@@ -32,14 +32,17 @@
     <Compile Include="DesignPatterns\SingletonMeta.py" />
     <Compile Include="EventReader\EventReader.py" />
     <Compile Include="EventRecorder\AutomationRecorder.py" />
+    <Compile Include="EventRecorder\EventRecorderDependencySetup.py" />
     <Compile Include="EventRecorder\MouseEventRecorder.py" />
     <Compile Include="EventReplayer\EventReplayer.py" />
+    <Compile Include="EventReplayer\EventReplayerDependencySetup.py" />
     <Compile Include="Event\Event.py" />
     <Compile Include="Event\EventDispatcher.py" />
     <Compile Include="Event\EventProcessor.py" />
     <Compile Include="Event\EventQueue.py" />
     <Compile Include="Event\EventTypes.py" />
     <Compile Include="Event\MouseEvent\MouseEventEnvelop.py" />
+    <Compile Include="Helper\UtilityFunctions.py" />
     <Compile Include="Listener\MouseEventsListener.py" />
     <Compile Include="Listener\MouseListener.py" />
     <Compile Include="EnableDPISetting.py" />
@@ -60,6 +63,7 @@
     <Folder Include="Event\" />
     <Folder Include="Communicator\" />
     <Folder Include="Event\MouseEvent\" />
+    <Folder Include="Helper\" />
     <Folder Include="Listener\" />
     <Folder Include="EventReader\" />
     <Folder Include="Replayer\" />
