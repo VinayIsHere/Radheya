@@ -3,7 +3,7 @@ sys.path.append("..")
 
 from pynput import mouse
 from Event.MouseEvent.MouseEventEnvelop import MouseEventEnvelop, CreateMouseEventEnvelop
-from Event import EventDispatcher
+from Event.EventDispatcher import EventsDispatcher
 from Event.EventTypes import EventType
 from TimeOffset import TimeOffset
 from datetime import datetime
@@ -15,6 +15,7 @@ timeOffsetCalc= TimeOffset(datetime.now())
 def OnClick(x, y, button, pressed):
     global isMousePressed
     
+
     #calculating waiting time
     currtime=datetime.now()
     waiting_time= timeOffsetCalc.calculate_time_offset(currtime)
@@ -34,7 +35,7 @@ def OnClick(x, y, button, pressed):
     event= CreateMouseEventEnvelop(x, y, eventtype, pressed, waiting_time, button)
     
     #Sending to Dispatcher
-    EventDispatcher.MouseEventDispatcher.publishEvent(event)
+    EventsDispatcher.publishEvent(event)
 
 def OnMove(x, y):
     global isMousePressed
@@ -51,5 +52,5 @@ def OnMove(x, y):
     event= CreateMouseEventEnvelop(x, y, event_type, isMousePressed, waiting_time, None) 
     
     #Sending to dispatcher
-    EventDispatcher.MouseEventDispatcher.publishEvent(event)
-
+    EventsDispatcher.publishEvent(event)
+    

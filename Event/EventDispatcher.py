@@ -37,4 +37,4 @@ class EventDispatcher(Communicator):
     def receive(self, event):
         pass
         
-MouseEventDispatcher= EventDispatcher()
+EventsDispatcher= EventDispatcher()
