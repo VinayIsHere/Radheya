@@ -4,7 +4,7 @@ from ..Event.EventDispatcher import EventsDispatcher
 from ..Event.EventTypes import EventType
 from .EventsListener import EventsListener
 from ..DesignPatterns.SingletonMeta import singleton
-from ..TimeOffset import TimeOffset
+from ..TimeOffset import TimeOffsetCalculator
 from datetime import datetime
 
 @singleton
@@ -14,7 +14,6 @@ class MouseEventsListener(EventsListener):
         EventsListener.__init__(self, dispatcher)
         self._listener= mouse.Listener(on_move= self.onMove, on_click= self.onClick)
         self.isMousePressed= False
-        self.timeoffsetCalculator= TimeOffset(datetime.now())
 
     def start(self):
         self._listener.start()
@@ -34,8 +33,8 @@ class MouseEventsListener(EventsListener):
 
         #calculating waiting time
         currtime=datetime.now()
-        waiting_time= self.timeoffsetCalculator.calculate_time_offset(currtime)
-        self.timeoffsetCalculator.changeReferenceTime(currtime)
+        waiting_time= TimeOffsetCalculator.calculate_time_offset(currtime)
+        TimeOffsetCalculator.changeReferenceTime(currtime)
 
         #setting global mouse_pressed event
         self.isMousePressed=pressed
@@ -60,8 +59,8 @@ class MouseEventsListener(EventsListener):
 
         #calculating waiting time
         currtime=datetime.now()
-        waiting_time=self.timeoffsetCalculator.calculate_time_offset(currtime)
-        self.timeoffsetCalculator.changeReferenceTime(currtime)
+        waiting_time= TimeOffsetCalculator.calculate_time_offset(currtime)
+        TimeOffsetCalculator.changeReferenceTime(currtime)
 
         #creating event envelop
         event= MouseEventEnvelop(x, y, event_type, self.isMousePressed, waiting_time, None)

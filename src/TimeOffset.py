@@ -1,5 +1,7 @@
 from datetime import datetime
+from .DesignPatterns.SingletonMeta import singleton
 
+@singleton
 class TimeOffset:
     def __init__(self, reference_time):
         self.reference_time = reference_time
@@ -16,3 +18,5 @@ class TimeOffset:
         time_offset_milliseconds = int(time_difference.total_seconds() * 1000)
 
         return time_offset_milliseconds
+
+TimeOffsetCalculator= TimeOffset(datetime.now())

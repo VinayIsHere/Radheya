@@ -2,6 +2,7 @@ import json
 from ..Event.EventTypes import EventType
 from .Storage import Storage, EVENT_TYPE_KEY, META_KEY
 from ..Event.MouseEvent.MouseEventEnvelop import convertDictToMouseEventEnvelop
+from ..Event.KeyboardEvent.KeyboardEventEnvelop import convertDictToKeyboardEventEnvelop
 
 class JsonStorage(Storage):
     def __init__(self, dataSource):
@@ -43,7 +44,10 @@ def is_mouse_event(eventType):
     ]
 
 def is_keyboard_event(eventType):
-    return False  # Not implemented as of now
+    if(eventType in [ EventType.eKeyboardUpEvent, EventType.eKeyboardDownEvent]):
+        return True
+
+    return False
 
 def convert_dictionary_to_event(dictEvent):
     
@@ -53,9 +57,6 @@ def convert_dictionary_to_event(dictEvent):
     if is_mouse_event(eventType):
         eventEnvelop= convertDictToMouseEventEnvelop(dictEvent)
     elif(is_keyboard_event(eventType)):
-        eventEnvelop= convert_dictionary_to_keyboard_event(dictEvent)
+        eventEnvelop= convertDictToKeyboardEventEnvelop(dictEvent)
 
     return eventEnvelop
-
-def convert_dictionary_to_keyboard_event(dictEvent):
-    pass #Feature Not implemented

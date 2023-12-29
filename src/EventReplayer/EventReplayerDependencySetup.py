@@ -1,10 +1,14 @@
 from ..Storage.StorageManager import StorageManager
 from ..Storage.JsonStorage import JsonStorage
 from ..Replayer.MouseReplayer import MouseReplayer
+from ..Replayer.KeyboardReplayer import KeyboardReplayer
 from ..Actions.MouseActions.MousePressAction import MousePressAction
 from ..Actions.MouseActions.MouseMoveAction import MouseMoveAction
 from ..Actions.MouseActions.MouseReleaseAction import MouseReleaseAction
+from ..Actions.KeyboardActions.KeyboardUpAction import KeyboardUpAction
+from ..Actions.KeyboardActions.KeyboardDownAction import KeyboardDownAction
 from ..Replayer.MouseEventReplayer import MouseEventReplayer
+from ..Replayer.KeyboardEventReplayer import KeyboardEventReplayer
 from ..EventReader.EventReader import EventReader
 from ..Event.EventDispatcher import EventsDispatcher
 from ..EventReplayer.EventReplayer import EventReplayer
@@ -12,11 +16,13 @@ from ..EventReplayer.EventReplayer import EventReplayer
 storageManager= StorageManager()
 mousePressAction= None
 mouseMoveAction= None
+keyboardUpAction= None
+keyboardDownAction= None
 mouseReleaseAction= None
 storage= None
 
 def GetJsonFileToReplay():
-    return "4fc26a63-33f7-4061-8600-afdaaa78789e.json" #this should come from the UI, for now passing from here.
+    return "6bdf78fa-ba10-451d-bab5-77940c43c7ea.json" #this should come from the UI, for now passing from here.
 
 def SetupStorage():
     global storageManager
@@ -37,6 +43,15 @@ def SetupMouseActions():
     mouseMoveAction= MouseMoveAction(storage, replayer)
     mouseReleaseAction= MouseReleaseAction(storage, replayer)
 
+def SetupKeyboardActions():
+    global keyboardUpAction
+    global keyboardDownAction
+
+    replayer= KeyboardReplayer()
+
+    keyboardUpAction= KeyboardUpAction(storage, replayer)
+    keyboardDownAction= KeyboardDownAction(storage, replayer)
+
 def SetupMouseEventReplayer():
     global mousePressAction
     global mouseMoveAction
@@ -44,9 +59,16 @@ def SetupMouseEventReplayer():
 
     return MouseEventReplayer(mousePressAction, mouseMoveAction, mouseReleaseAction)
 
+def SetupKeyboardEventReplayer():
+    global keyboardUpAction
+    global keyboardDownAction
+
+    return KeyboardEventReplayer(keyboardUpAction, keyboardDownAction)
+
 def SetupEventReaderAndReplayer():
     
     SetupStorage()
     SetupMouseActions()
+    SetupKeyboardActions()
 
-    return EventReader(storage, EventsDispatcher), EventReplayer(SetupMouseEventReplayer())
+    return EventReader(storage, EventsDispatcher), EventReplayer(SetupMouseEventReplayer(), SetupKeyboardEventReplayer())

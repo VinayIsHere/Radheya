@@ -61,6 +61,7 @@ def startEventReplaying():
     
     eventReader, eventReplayer= EventReplayerDependencySetup.SetupEventReaderAndReplayer()
     SubscribeMouseEvents(eventReplayer)
+    SubscribeKeyboardEvents(eventReplayer)
 
     print("Started Event Replayer")
     eventReader.start()
@@ -87,7 +88,8 @@ def stopRecordingOrReplaying():
 #            stopRecordingOrReplaying()
 
 def main():
-    startEventRecording()
+    #startEventRecording()
+    startEventReplaying()
    
 if(__name__ == "__main__"):
     main()

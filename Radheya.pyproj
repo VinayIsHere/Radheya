@@ -63,6 +63,8 @@
     <Compile Include="src\Listener\KeyboardEventsListener.py" />
     <Compile Include="src\Listener\MouseEventsListener.py" />
     <Compile Include="src\Listener\__init__.py" />
+    <Compile Include="src\Replayer\KeyboardEventReplayer.py" />
+    <Compile Include="src\Replayer\KeyboardReplayer.py" />
     <Compile Include="src\Replayer\MouseEventReplayer.py" />
     <Compile Include="src\Replayer\MouseReplayer.py" />
     <Compile Include="src\Replayer\__init__.py" />

@@ -16,7 +16,7 @@ class KeyboardEventEnvelop(Event):
         return self.name
 
     def getWaitingTime(self):
-        return self.waitintTime
+        return self.waitingTime
 
     def getDevice(self):
         return self.device

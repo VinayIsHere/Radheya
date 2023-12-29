@@ -1,7 +1,7 @@
 import keyboard
 from datetime import datetime
 from ..DesignPatterns.SingletonMeta import singleton
-from ..TimeOffset import TimeOffset
+from ..TimeOffset import TimeOffsetCalculator
 from .EventsListener import EventsListener
 from ..Event.EventDispatcher import EventsDispatcher
 from ..Event.EventTypes import EventType
@@ -14,7 +14,6 @@ class KeyboardEventsListener(EventsListener):
     
     def __init__(self, dispatcher):
         EventsListener.__init__(self, dispatcher)
-        self.timeOffsetCalculator= TimeOffset(datetime.now())
         
     def start(self):
         keyboard.hook(self.keyEventCallback)
@@ -33,8 +32,8 @@ class KeyboardEventsListener(EventsListener):
         
         #calculating waiting time
         currtime= datetime.now()
-        waiting_time= self.timeOffsetCalculator.calculate_time_offset(currtime)
-        self.timeOffsetCalculator.changeReferenceTime(currtime)
+        waiting_time= TimeOffsetCalculator.calculate_time_offset(currtime)
+        TimeOffsetCalculator.changeReferenceTime(currtime)
 
         eventtype= None
         #initializing keyboard event

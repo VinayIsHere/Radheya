@@ -7,6 +7,7 @@ class EventReader:
 
     def start(self):
         self._eventList= self._storage.Read()
+        print(self._eventList)
         self.publishEvent()
 
     def stop(self):
