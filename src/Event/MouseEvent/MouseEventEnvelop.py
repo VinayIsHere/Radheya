@@ -1,61 +1,70 @@
 from ..Event import Event
+from ..EventTypes import EventType
+from pynput.mouse import Button
 
 #Envleop Contains Information about Mouse Event.
 class MouseEventEnvelop(Event):
-    def __init__(self):
-        self.x= None
-        self.y= None
-        self.button= None
-        self.pressed= None
-        self.waitingTime= 0
-        
-    def setWaitingTime(self, val):
-
-        self.waitingTime= val
+    def __init__(self, x, y, eventtype, pressed, waitingtime, button=None):
+        Event.__init__(self, eventtype)
+        self.x= x
+        self.y= y
+        self.button= button
+        self.pressed= pressed
+        self.waitingTime= waitingtime
     
-    def setX(self, val):
-        self.x= val
-    
-
-    def setY(self, val):
-        self.y= val
-
-    def setPressed(self, val):
-        self.pressed= val
-
-    def setButton(self, val):
-        self.button= val
-
-
-    def setEventType(self, eventType):
-        self.eventType= eventType
-
-    def getEventType(self):
-        return self.eventType
-    
-    def isPressed(self):
-        return self.pressed
-
     def getX(self):
         return self.x
 
     def getY(self):
         return self.y
 
-    def getWaitingTime(self):
-        return self.waitingTime
-
     def getButton(self):
         return self.button
 
-def CreateMouseEventEnvelop(x, y, eventtype, ispressed, waitingtime, button):
-    envelop= MouseEventEnvelop()
+    def isPressed(self):
+        return self.pressed
 
-    envelop.setX(x)
-    envelop.setY(y)
-    envelop.setEventType(eventtype)
-    envelop.setPressed(ispressed)
-    envelop.setButton(button)
-    envelop.setWaitingTime(waitingtime)
+    def getCordinate(self):
+        return self.x, self.y
 
-    return envelop
+    def getWaitingTime(self):
+        return self.waitingTime
+
+    def getEventType(self):
+        return self.eventType
+
+    def setWaitingTime(self, waitingtime):
+        self.waitingTime= waitingtime
+    
+    def to_dict(self):
+        attrs = dict(
+            (attr, getattr(self, attr)) for attr in ['x', 'y', 'eventType', 'waitingTime', 'pressed']
+        )
+
+        #Button is a special case
+        if(self.button != None):
+            attrs['button']= self.button.value
+        else:
+            attrs['button']= "None"
+
+        return attrs
+
+#Helper Functions
+def convertDictToMouseEventEnvelop(dictEvent):
+    eventType= EventType(dictEvent.get("eventType"))
+
+    meta= dictEvent.get("meta")
+
+    #Parsing Mouse Meta Information
+    button= None
+    if(meta.get("button") != "None"):
+        button= Button(tuple(meta.get("button")))
+       
+    x= int(meta.get("x"))
+    y= int(meta.get("y"))
+    ispressed= int(meta.get("pressed"))
+    waitingtime= int(meta.get("waitingTime"))
+
+    mouseEventEnvelop= MouseEventEnvelop(x, y, eventType, ispressed, waitingtime, button)
+
+    return mouseEventEnvelop

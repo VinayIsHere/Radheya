@@ -48,13 +48,16 @@
     <Compile Include="src\Event\EventProcessor.py" />
     <Compile Include="src\Event\EventQueue.py" />
     <Compile Include="src\Event\EventTypes.py" />
+    <Compile Include="src\Event\KeyboardEvent\KeyboardEventEnvelop.py" />
+    <Compile Include="src\Event\KeyboardEvent\__init__.py" />
     <Compile Include="src\Event\MouseEvent\MouseEventEnvelop.py" />
     <Compile Include="src\Event\MouseEvent\__init__.py" />
     <Compile Include="src\Event\__init__.py" />
     <Compile Include="src\Helper\UtilityFunctions.py" />
     <Compile Include="src\Helper\__init__.py" />
+    <Compile Include="src\Listener\EventsListener.py" />
+    <Compile Include="src\Listener\KeyboardEventsListener.py" />
     <Compile Include="src\Listener\MouseEventsListener.py" />
-    <Compile Include="src\Listener\MouseListener.py" />
     <Compile Include="src\Listener\__init__.py" />
     <Compile Include="src\Replayer\MouseEventReplayer.py" />
     <Compile Include="src\Replayer\MouseReplayer.py" />
@@ -77,6 +80,7 @@
     <Folder Include="src\EventRecorder" />
     <Folder Include="src\EventReplayer" />
     <Folder Include="src\Event\MouseEvent" />
+    <Folder Include="src\Event\KeyboardEvent\" />
     <Folder Include="src\Helper" />
     <Folder Include="src\Listener" />
     <Folder Include="src\Replayer" />

@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-EVENT_TYPE_KEY= "eventtype"
+EVENT_TYPE_KEY= "eventType"
 META_KEY= "meta"
 
 class Storage(ABC):

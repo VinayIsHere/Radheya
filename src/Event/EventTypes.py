@@ -7,5 +7,6 @@ class EventType(IntEnum):
     eMouseReleaseEvent= 2,
     eMouseMoveEvent= 3,
     eMousePressedAndMoveEvent= 4,
-    eKeyboardEvent= 5,
-    eEndingEvent= 6
+    eKeyboardUpEvent= 5,
+    eKeyboardDownEvent=6,
+    eEndingEvent= 7

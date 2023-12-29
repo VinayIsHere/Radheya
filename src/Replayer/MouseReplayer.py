@@ -38,7 +38,7 @@ def ReplayMousePressEvent(event):
     global LastMouseEventPosition
     global MouseController
     
-    print(f"PressEvent: x: {event.getX()}, y:{event.getY()}, waitingTime: {event.getWaitingTime()}, button: {event.getButton()}")
+    #print(f"mousePressEvent: eventDetails: {event.to_dict()}")
     
     #delay before performing the action
     time.sleep((event.getWaitingTime()*0.001)) #converting to seconds
@@ -49,12 +49,12 @@ def ReplayMousePressEvent(event):
 
     #Simulate Press Event
     MouseController.press(event.getButton())
-  
+    
 def ReplayMouseMoveEvent(event):
     global LastMouseEventPosition
     global MouseController
 
-    print(f"moveEvent: x: {event.getX()}, y:{event.getY()}, waitingTime: {event.getWaitingTime()}, button: {event.getButton()}")
+    #print(f"mouseMoveEvent: eventDetails: {event.to_dict()}")
     
     #delay before performing the action
     time.sleep((event.getWaitingTime()*0.001)) #converting to seconds
@@ -65,13 +65,14 @@ def ReplayMouseMoveEvent(event):
     #Simulate Move Event
     MouseController.move(offsetPosition[0], offsetPosition[1])
     LastMouseEventPosition= MouseController.position
-    print(LastMouseEventPosition)
+    #print(LastMouseEventPosition)
     
 def ReplayMouseReleaseEvent(event):
     global MouseController
     global LastMouseEventPosition
 
-    print(f"ReleaseEvent: x: {event.getX()}, y:{event.getY()}, waitingTime: {event.getWaitingTime()}, button: {event.getButton()}")
+    #print(f"mouseReleaseEvent: eventDetails: {event.to_dict()}")
+    
     time.sleep((event.getWaitingTime()*0.001)) #converting to seconds
 
     MouseController.position= (event.getX(), event.getY())
