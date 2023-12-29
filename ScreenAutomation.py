@@ -48,7 +48,7 @@ def startEventRecording():
     
     print("Started EventRecorder")
     MouseEventsListener.MouseListenerController.start()
-    #KeyboardEventsListener.KeyboardListenerController.start()
+    KeyboardEventsListener.KeyboardListenerController.start()
     
     
 def startEventReplaying():
@@ -77,18 +77,17 @@ def stopRecordingOrReplaying():
         EventsDispatcher.unsubscribeAll()        
         print("stopping event Replaying")
     
-def on_key_event(keyboardEvent):
-    if(keyboardEvent.event_type == keyboard.KEY_DOWN):
-        if(keyboard.is_pressed("f5")):
-            startEventRecording()
-        elif(keyboard.is_pressed("ctrl+r")):
-            startEventReplaying()
-        elif(keyboard.is_pressed("end")):
-            stopRecordingOrReplaying()
+#def on_key_event(keyboardEvent):
+#    if(keyboardEvent.event_type == keyboard.KEY_DOWN):
+#        if(keyboard.is_pressed("f5")):
+#            startEventRecording()
+#        elif(keyboard.is_pressed("ctrl+r")):
+#            startEventReplaying()
+#        elif(keyboard.is_pressed("end")):
+#            stopRecordingOrReplaying()
 
 def main():
-    keyboard.hook(on_key_event)
-    keyboard.wait("esc")
+    startEventRecording()
    
 if(__name__ == "__main__"):
     main()

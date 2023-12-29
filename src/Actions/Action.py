@@ -13,7 +13,7 @@ class Action(ABC):
         pass
 
     @abstractmethod
-    def WriteAction(self):
+    def WriteAction(self, event):
         pass
     
     @abstractmethod

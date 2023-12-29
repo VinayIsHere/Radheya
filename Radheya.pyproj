@@ -23,6 +23,9 @@
     <Compile Include="src\Actions\Action.py" />
     <Compile Include="src\Actions\ActionManager.py" />
     <Compile Include="src\Actions\ActionsType.py" />
+    <Compile Include="src\Actions\KeyboardActions\KeyboardDownAction.py" />
+    <Compile Include="src\Actions\KeyboardActions\KeyboardUpAction.py" />
+    <Compile Include="src\Actions\KeyboardActions\__init__.py" />
     <Compile Include="src\Actions\MouseActions\MouseMoveAction.py" />
     <Compile Include="src\Actions\MouseActions\MousePressAction.py" />
     <Compile Include="src\Actions\MouseActions\MouseReleaseAction.py" />
@@ -38,6 +41,7 @@
     <Compile Include="src\EventReader\__init__.py" />
     <Compile Include="src\EventRecorder\AutomationRecorder.py" />
     <Compile Include="src\EventRecorder\EventRecorderDependencySetup.py" />
+    <Compile Include="src\EventRecorder\KeyboardEventRecorder.py" />
     <Compile Include="src\EventRecorder\MouseEventRecorder.py" />
     <Compile Include="src\EventRecorder\__init__.py" />
     <Compile Include="src\EventReplayer\EventReplayer.py" />
@@ -73,6 +77,7 @@
     <Folder Include="src" />
     <Folder Include="src\Actions" />
     <Folder Include="src\Actions\MouseActions" />
+    <Folder Include="src\Actions\KeyboardActions\" />
     <Folder Include="src\Communicator" />
     <Folder Include="src\DesignPatterns" />
     <Folder Include="src\Event" />

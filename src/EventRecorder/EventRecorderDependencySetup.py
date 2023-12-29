@@ -5,14 +5,19 @@ from ..Storage.JsonStorage import JsonStorage
 from ..Actions.MouseActions.MousePressAction import MousePressAction
 from ..Actions.MouseActions.MouseMoveAction import MouseMoveAction
 from ..Actions.MouseActions.MouseReleaseAction import MouseReleaseAction
+from ..Actions.KeyboardActions.KeyboardUpAction import KeyboardUpAction
+from ..Actions.KeyboardActions.KeyboardDownAction import KeyboardDownAction
 from ..EventRecorder.AutomationRecorder import AutomationRecorder
 from ..EventRecorder.MouseEventRecorder import MouseEventRecorder
+from ..EventRecorder.KeyboardEventRecorder import KeyboardEventRecorder
 
 storageManager= StorageManager()
 storage= None
 mousePressAction= None
 mouseMoveAction= None
 mouseReleaseAction= None
+keyboardUpAction= None
+keyboardDownAction= None
 
 def generate_random_json_filename():
     return generate_unique_number()+'.json'
@@ -43,6 +48,13 @@ def SetupMouseActions():
     mouseMoveAction= MouseMoveAction(storage)
     mouseReleaseAction= MouseReleaseAction(storage)
  
+def SetupKeyboardActions():
+    global keyboardUpAction
+    global keyboardDownAction
+
+    keyboardUpAction= KeyboardUpAction(storage)
+    keyboardDownAction= KeyboardDownAction(storage)
+
 def SetupMouseEventRecorder():
     global mousePressAction
     global mouseMoveAction
@@ -50,11 +62,18 @@ def SetupMouseEventRecorder():
 
     return MouseEventRecorder(mousePressAction, mouseMoveAction, mouseReleaseAction)
 
+def SetupKeyboardEventRecorder():
+    global keyboardUpAction
+    global keyboardDownAction
+
+    return KeyboardEventRecorder(keyboardUpAction, keyboardDownAction)
+
 def SetupAutomationEventRecorder():
     
     SetupNewFileForWritingEvents()
     SetupJsonStorage()
     SetupMouseActions()
-    
-    return AutomationRecorder(SetupMouseEventRecorder())
+    SetupKeyboardActions()
+
+    return AutomationRecorder(SetupMouseEventRecorder(), SetupKeyboardEventRecorder())
 
