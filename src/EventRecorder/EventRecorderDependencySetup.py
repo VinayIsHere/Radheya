@@ -10,6 +10,8 @@ from ..Actions.KeyboardActions.KeyboardDownAction import KeyboardDownAction
 from ..EventRecorder.AutomationRecorder import AutomationRecorder
 from ..EventRecorder.MouseEventRecorder import MouseEventRecorder
 from ..EventRecorder.KeyboardEventRecorder import KeyboardEventRecorder
+from ..Actions.ActionManager import ActionManagerController
+from ..EventRecorder.EventRecorderManager import EventRecorderController
 
 storageManager= StorageManager()
 storage= None
@@ -18,6 +20,7 @@ mouseMoveAction= None
 mouseReleaseAction= None
 keyboardUpAction= None
 keyboardDownAction= None
+currRecordingDict= dict()
 
 def generate_random_json_filename():
     return generate_unique_number()+'.json'
@@ -33,6 +36,11 @@ def SetupNewFileForWritingEvents():
     
     print("New File Created: {0}".format(random_filename))
     storageManager.ChangeDataSource(random_filename)
+
+def SetupStorageManagerProperties(uuid):
+    global currRecordingDict
+    currRecordingDict[uuid]= dict()
+    storageManager.ChangeDataSource(currRecordingDict)
 
 def SetupJsonStorage():
     global storage
@@ -68,12 +76,20 @@ def SetupKeyboardEventRecorder():
 
     return KeyboardEventRecorder(keyboardUpAction, keyboardDownAction)
 
-def SetupAutomationEventRecorder():
+
+def saveFile():
+    global storage
+    storage.InternalWrite("abc.json")
+
+def SetupAutomationEventRecorder(uuid):
     
-    SetupNewFileForWritingEvents()
+    #SetupNewFileForWritingEvents()
+    
+    EventRecorderController.SetCurrentEventRecordingDocumentID(uuid)
+    SetupStorageManagerProperties(uuid)
+    ActionManagerController.AddSequenceCounterForUuid(uuid)
     SetupJsonStorage()
     SetupMouseActions()
     SetupKeyboardActions()
 
     return AutomationRecorder(SetupMouseEventRecorder(), SetupKeyboardEventRecorder())
-

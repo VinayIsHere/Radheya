@@ -9,6 +9,7 @@ from src.Actions.ActionManager import ActionManagerController
 from src.Actions.ActionsType import ActionsType
 from src.EventRecorder import EventRecorderDependencySetup
 from src.EventReplayer import EventReplayerDependencySetup
+from src.Helper.UtilityFunctions import generate_unique_number
 
 #Setting application mode to Off Initially.
 AppMode= ApplicationModes.eOffMode
@@ -17,6 +18,7 @@ AppMode= ApplicationModes.eOffMode
 EnableDPISetting.EnableWindowsDPIAware()
 
 eventReader= None
+CurrentRecordingUUID= None
 
 def SubscribeMouseEvents(subscriber):
     
@@ -30,17 +32,18 @@ def SubscribeKeyboardEvents(subscriber):
     EventsDispatcher.subscribeEvent(EventType.eKeyboardUpEvent, subscriber)
     EventsDispatcher.subscribeEvent(EventType.eKeyboardDownEvent, subscriber)
 
-def startEventRecording():
+def startEventRecording(appMode):
     global AppMode
+    global CurrentRecordingUUID
 
     #Changing Current Action Manager to indicate Write Action is ON.
     ActionManagerController.changeCurrentAction(ActionsType.eWriteAction)
+    AppMode= appMode
 
-    #Setting App Mode to Record Mode for Keyboard and Mouse Event.
-    AppMode= ApplicationModes.eRecordMode | ApplicationModes.eKeyboardAndMouseEventRecordMode
+    CurrentRecordingUUID= generate_unique_number()
 
     #Setting up Activity Recorder
-    ActivityRecorder= EventRecorderDependencySetup.SetupAutomationEventRecorder()
+    ActivityRecorder= EventRecorderDependencySetup.SetupAutomationEventRecorder(CurrentRecordingUUID)
     
     #Subscriving All Mouse Events for Activity Recorder.
     SubscribeMouseEvents(ActivityRecorder)
@@ -50,13 +53,11 @@ def startEventRecording():
     MouseEventsListener.MouseListenerController.start()
     KeyboardEventsListener.KeyboardListenerController.start()
     
-    
-def startEventReplaying():
+def startEventReplaying(appMode):
     global AppMode
     global eventReader
 
-    AppMode= ApplicationModes.eReplayMode | ApplicationModes.eMouseAndKeyboardReplayMode
-
+    AppMode=appMode
     ActionManagerController.changeCurrentAction(ActionsType.eReplayAction)
     
     eventReader, eventReplayer= EventReplayerDependencySetup.SetupEventReaderAndReplayer()
@@ -69,27 +70,12 @@ def startEventReplaying():
 def stopRecordingOrReplaying():
     global AppMode
 
-    if(AppMode == (ApplicationModes.eRecordMode | ApplicationModes.eKeyboardAndMouseEventRecordMode)):
+    if(AppMode == (ApplicationModes.eKeyboardAndMouseEventRecordMode)):
         EventsDispatcher.unsubscribeAll()
         MouseEventsListener.MouseListenerController.stop()
         print("stopping Listening to MouseEvents")
-    elif(AppMode == (ApplicationModes.eReplayMode | ApplicationModes.eMouseAndKeyboardReplayMode)):
+    elif(AppMode == (ApplicationModes.eMouseAndKeyboardReplayMode)):
         eventReader.stop()
         EventsDispatcher.unsubscribeAll()        
         print("stopping event Replaying")
-    
-#def on_key_event(keyboardEvent):
-#    if(keyboardEvent.event_type == keyboard.KEY_DOWN):
-#        if(keyboard.is_pressed("f5")):
-#            startEventRecording()
-#        elif(keyboard.is_pressed("ctrl+r")):
-#            startEventReplaying()
-#        elif(keyboard.is_pressed("end")):
-#            stopRecordingOrReplaying()
 
-def main():
-    #startEventRecording()
-    startEventReplaying()
-   
-if(__name__ == "__main__"):
-    main()

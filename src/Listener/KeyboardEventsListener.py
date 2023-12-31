@@ -6,6 +6,8 @@ from .EventsListener import EventsListener
 from ..Event.EventDispatcher import EventsDispatcher
 from ..Event.EventTypes import EventType
 from ..Event.KeyboardEvent.KeyboardEventEnvelop import KeyboardEventEnvelop
+from ..EventRecorder.EventRecorderManager import EventRecorderController
+from ..EventRecorder.EventRecorderDependencySetup import saveFile
 
 WAIT_KEY= 'esc'
 
@@ -29,7 +31,7 @@ class KeyboardEventsListener(EventsListener):
         self._dispatcher.publishEvent(event)
         
     def keyEventCallback(self, event):
-        
+
         #calculating waiting time
         currtime= datetime.now()
         waiting_time= TimeOffsetCalculator.calculate_time_offset(currtime)
@@ -42,9 +44,10 @@ class KeyboardEventsListener(EventsListener):
         elif(event.event_type == keyboard.KEY_DOWN):
             eventtype= EventType.eKeyboardDownEvent
         
-        eventEnvelop= KeyboardEventEnvelop(event.name, eventtype, event.scan_code, waiting_time, event.time, event.device, event.is_keypad, event.modifiers)
+        uuid= EventRecorderController.GetCurrentEventRecordingDocumentId()
+        eventEnvelop= KeyboardEventEnvelop(uuid, event.name, eventtype, event.scan_code, waiting_time, event.time, event.device, event.is_keypad, event.modifiers)
 
-        print(f"keyboardevent:", eventEnvelop.to_dict())
+        #print(f"keyboardevent:", eventEnvelop.to_dict())
         self.notify(eventEnvelop)
 
 #Listener which will capture the Mouse events

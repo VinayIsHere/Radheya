@@ -38,7 +38,7 @@ def ReplayMousePressEvent(event):
     global LastMouseEventPosition
     global MouseController
     
-    #print(f"mousePressEvent: eventDetails: {event.to_dict()}")
+    print(f"mousePressEvent: eventDetails: {event.to_dict()}")
     
     #delay before performing the action
     time.sleep((event.getWaitingTime()*0.001)) #converting to seconds

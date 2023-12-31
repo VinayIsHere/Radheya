@@ -4,8 +4,8 @@ from pynput.mouse import Button
 
 #Envleop Contains Information about Mouse Event.
 class MouseEventEnvelop(Event):
-    def __init__(self, x, y, eventtype, pressed, waitingtime, button=None):
-        Event.__init__(self, eventtype)
+    def __init__(self, uuid, x, y, eventtype, pressed, waitingtime, button=None):
+        Event.__init__(self, eventtype, uuid)
         self.x= x
         self.y= y
         self.button= button
@@ -36,9 +36,12 @@ class MouseEventEnvelop(Event):
     def setWaitingTime(self, waitingtime):
         self.waitingTime= waitingtime
     
+    def getParentUuid(self):
+        return self.parentuuid
+
     def to_dict(self):
         attrs = dict(
-            (attr, getattr(self, attr)) for attr in ['x', 'y', 'eventType', 'waitingTime', 'pressed']
+            (attr, getattr(self, attr)) for attr in ['parentuuid', 'x', 'y', 'eventType', 'waitingTime', 'pressed']
         )
 
         #Button is a special case
@@ -50,10 +53,11 @@ class MouseEventEnvelop(Event):
         return attrs
 
 #Helper Functions
-def convertDictToMouseEventEnvelop(dictEvent):
-    eventType= EventType(dictEvent.get("eventType"))
-
+def convertDictToMouseEventEnvelop(dictEvent): 
     meta= dictEvent.get("meta")
+
+    uuid= meta["parentuuid"]
+    eventType= EventType(meta["eventType"])
 
     #Parsing Mouse Meta Information
     button= None
@@ -65,6 +69,6 @@ def convertDictToMouseEventEnvelop(dictEvent):
     ispressed= int(meta.get("pressed"))
     waitingtime= int(meta.get("waitingTime"))
 
-    mouseEventEnvelop= MouseEventEnvelop(x, y, eventType, ispressed, waitingtime, button)
+    mouseEventEnvelop= MouseEventEnvelop(uuid, x, y, eventType, ispressed, waitingtime, button)
 
     return mouseEventEnvelop

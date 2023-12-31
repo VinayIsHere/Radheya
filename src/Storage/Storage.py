@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-EVENT_TYPE_KEY= "eventType"
+EVENT_SEQUENCE_NO= "EventSequenceNumber"
 META_KEY= "meta"
 
 class Storage(ABC):
@@ -10,7 +10,7 @@ class Storage(ABC):
         
     #Write the event into _data.
     @abstractmethod
-    def Write(self, event):
+    def WriteEvent(self, event):
         pass
 
     #Read Stored Events From the _data.

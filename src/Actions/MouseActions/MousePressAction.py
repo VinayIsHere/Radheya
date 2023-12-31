@@ -18,7 +18,7 @@ class MousePressAction(Action):
             self.replayAction(event)
 
     def WriteAction(self, event):
-        self.storage.Write(event)
+        self.storage.WriteEvent(event)
 
     def ReadAction(self, event):
         self.storage.Read()

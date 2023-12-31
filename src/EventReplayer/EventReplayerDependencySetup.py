@@ -22,13 +22,13 @@ mouseReleaseAction= None
 storage= None
 
 def GetJsonFileToReplay():
-    return "6bdf78fa-ba10-451d-bab5-77940c43c7ea.json" #this should come from the UI, for now passing from here.
+    return "abc.json" #this should come from the UI, for now passing from here.
 
 def SetupStorage():
     global storageManager
     global storage
 
-    storageManager.ChangeDataSource("jsonfiles/"+GetJsonFileToReplay())
+    storageManager.ChangeDataSource(GetJsonFileToReplay())
     storage=JsonStorage(storageManager.GetDataSource())
 
 def SetupMouseActions():
@@ -72,3 +72,4 @@ def SetupEventReaderAndReplayer():
     SetupKeyboardActions()
 
     return EventReader(storage, EventsDispatcher), EventReplayer(SetupMouseEventReplayer(), SetupKeyboardEventReplayer())
+
