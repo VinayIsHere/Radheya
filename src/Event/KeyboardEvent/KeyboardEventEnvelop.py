@@ -2,8 +2,8 @@ from ..Event import Event
 from ..EventTypes import EventType
 
 class KeyboardEventEnvelop(Event):
-    def __init__(self, name, eventType, scanCode, waitingtime, time, device, iskeypad, modifiers):
-        Event.__init__(self, eventType)
+    def __init__(self, uuid, name, eventType, scanCode, waitingtime, time, device, iskeypad, modifiers):
+        Event.__init__(self, eventType, uuid)
         self.name= name
         self.scanCode= scanCode
         self.waitingTime = waitingtime
@@ -36,17 +36,22 @@ class KeyboardEventEnvelop(Event):
     def getEventType(self):
         return self.eventType
 
+    def getParentUuid(self):
+        return self.parentuuid
+
     def to_dict(self):
         attrs = dict(
-            (attr, getattr(self, attr)) for attr in ['name', 'eventType' ,'scanCode', 'waitingTime', 'time', 'device', 'isKeypad', 'modifiers']
+            (attr, getattr(self, attr)) for attr in ['parentuuid', 'name', 'eventType' ,'scanCode', 'waitingTime', 'time', 'device', 'isKeypad', 'modifiers']
         )
         return attrs
 
 #Helper functions
 def convertDictToKeyboardEventEnvelop(dictEvent):
-    eventtype= EventType(dictEvent.get("eventType"))
-
+    
     meta= dictEvent.get("meta")
+
+    uuid= meta["parentuuid"]
+    eventtype= EventType(meta["eventType"])
 
     #Parsing mouse meta information
     name= meta["name"]
@@ -58,6 +63,6 @@ def convertDictToKeyboardEventEnvelop(dictEvent):
     modifiers= meta["modifiers"]
 
     #Preparing envelop
-    keyboardEventEnvelop= KeyboardEventEnvelop(name, eventtype, scancode, waitingtime, time, device, iskeypad, modifiers)
+    keyboardEventEnvelop= KeyboardEventEnvelop(uuid, name, eventtype, scancode, waitingtime, time, device, iskeypad, modifiers)
 
     return keyboardEventEnvelop

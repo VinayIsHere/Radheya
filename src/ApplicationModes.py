@@ -1,6 +1,11 @@
 from enum import IntEnum
 
-class ApplicationModes(IntEnum):
+class ExtendedIntEnum(IntEnum):
+    @classmethod
+    def dict(cls):
+        return {i.name: i.value for i in cls}
+
+class ApplicationModes(ExtendedIntEnum):
     eOffMode= 0, #No Activities are currently being performed by Application
     eRecordMode= 8, #Events will be getting recorded
     eMouseEventsRecordMode=1, #Mouse events are getting recorded now.

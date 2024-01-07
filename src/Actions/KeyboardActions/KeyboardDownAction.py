@@ -20,7 +20,7 @@ class KeyboardDownAction(Action):
         self._replayer.replayKeyboardDownEvent(event)
 
     def WriteAction(self, event):
-        self._storage.Write(event)
+        self._storage.WriteEvent(event)
     
     def ReadAction(self):
         self._storage.Read()

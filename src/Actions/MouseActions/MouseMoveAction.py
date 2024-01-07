@@ -18,11 +18,11 @@ class MouseMoveAction(Action):
             self.replayAction(event)
 
     def WriteAction(self, event):
-        #Only record Move event when mouse is pressed.
+        #Only record Move event when mouse is pressed
         if(event.isPressed() == False or event.isPressed() == None):
             return
 
-        self._storage.Write(event)
+        self._storage.WriteEvent(event)
 
     def ReadAction(self):
         self._storage.Read()

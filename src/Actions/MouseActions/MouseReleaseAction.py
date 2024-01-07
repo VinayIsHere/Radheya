@@ -18,11 +18,9 @@ class MouseReleaseAction(Action):
             self.replayAction(event)
 
     def WriteAction(self, event):
-        print("release action write")
-        self.storage.Write(event)
+        self.storage.WriteEvent(event)
 
     def ReadAction(self, event):
-        print("release action read")
         self.storage.Read()
 
     def replayAction(self, event):

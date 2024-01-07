@@ -1,33 +1,46 @@
 import json
 from ..Event.EventTypes import EventType
-from .Storage import Storage, EVENT_TYPE_KEY, META_KEY
+from .Storage import Storage, EVENT_SEQUENCE_NO , META_KEY
 from ..Event.MouseEvent.MouseEventEnvelop import convertDictToMouseEventEnvelop
 from ..Event.KeyboardEvent.KeyboardEventEnvelop import convertDictToKeyboardEventEnvelop
+from ..Actions.ActionManager import ActionManagerController
 
 class JsonStorage(Storage):
     def __init__(self, dataSource):
         super().__init__(dataSource)
 
-    def Write(self, event):
-        data = convert_event_to_dictionary(event)
-
-        with open(self._data, 'a') as file:
-            json.dump(data, file)
+    def WriteEvent(self, event):
+        data= convert_event_to_dictionary(event)
+        seq_no=ActionManagerController.GetCurrentEventSequenceNumber(event.getParentUuid())
+        self._data[event.getParentUuid()][seq_no]= data
+        
+    def InternalWrite(self, filename):
+        print("data:", self._data)
+        with open(filename, 'a') as file:
+            json.dump(self._data, file)
             file.write("\n")
 
-    def Read(self):
-        events= []
+    def ClearBuffer(self):
+        self._data.clear()
 
-        with open(self._data, 'r') as file:
-            for line in file:
-                event_data= json.loads(line)
-                event= convert_dictionary_to_event(event_data)
-                events.append(event)
-        return events
+    def Read(self):
+        
+        totalevents= []
+
+        file= open(self._data)
+        eventsJson= json.load(file)
+
+        for uuid in eventsJson.keys():
+            eventsDict= eventsJson[uuid]
+            
+            for seq_no, event in eventsDict.items():
+                eventEnvelop= convert_dictionary_to_event(event)
+                totalevents.append(eventEnvelop)
+
+        return totalevents
 
 def convert_event_to_dictionary(event):
     data = {
-        EVENT_TYPE_KEY: int(event.getEventType()),
         META_KEY: get_event_meta(event)
     }
     return data
@@ -51,7 +64,7 @@ def is_keyboard_event(eventType):
 
 def convert_dictionary_to_event(dictEvent):
     
-    eventType = EventType(dictEvent.get("eventType"))
+    eventType = EventType(dictEvent.get("meta").get("eventType"))
     eventEnvelop= None
 
     if is_mouse_event(eventType):
