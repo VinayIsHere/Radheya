@@ -15,9 +15,13 @@ class JsonStorage(Storage):
         self._data[event.getParentUuid()][seq_no]= data
         
     def InternalWrite(self, filename):
+        print("data:", self._data)
         with open(filename, 'a') as file:
             json.dump(self._data, file)
             file.write("\n")
+
+    def ClearBuffer(self):
+        self._data.clear()
 
     def Read(self):
         

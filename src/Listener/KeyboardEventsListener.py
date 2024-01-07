@@ -7,7 +7,6 @@ from ..Event.EventDispatcher import EventsDispatcher
 from ..Event.EventTypes import EventType
 from ..Event.KeyboardEvent.KeyboardEventEnvelop import KeyboardEventEnvelop
 from ..EventRecorder.EventRecorderManager import EventRecorderController
-from ..EventRecorder.EventRecorderDependencySetup import saveFile
 
 WAIT_KEY= 'esc'
 
@@ -24,8 +23,9 @@ class KeyboardEventsListener(EventsListener):
     def restart():
         pass #not implemented for keyboard.
 
-    def stop():
-        keyboard.unhook()
+    def stop(self):
+        keyboard.press(WAIT_KEY)
+        keyboard.unhook_all()
     
     def notify(self, event):
         self._dispatcher.publishEvent(event)

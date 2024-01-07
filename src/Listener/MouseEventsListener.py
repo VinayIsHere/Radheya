@@ -18,14 +18,14 @@ class MouseEventsListener(EventsListener):
         self.isMousePressed= False
 
     def start(self):
-        self._listener.start()
+        self.restart() #because threads needs to be recreated every time.
 
     def stop(self):
         self._listener.stop()
 
     def restart(self):
         self._listener= mouse.Listener(on_move= self.onMove, on_click= self.onClick)
-        self.start()
+        self._listener.start()
 
     def notify(self, event):
         self._dispatcher.publishEvent(event)

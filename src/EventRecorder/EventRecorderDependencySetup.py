@@ -1,5 +1,5 @@
 import os
-from ..Storage.StorageManager import StorageManager
+from ..Storage.StorageManager import StorageController
 from ..Helper.UtilityFunctions import generate_unique_number
 from ..Storage.JsonStorage import JsonStorage
 from ..Actions.MouseActions.MousePressAction import MousePressAction
@@ -13,7 +13,7 @@ from ..EventRecorder.KeyboardEventRecorder import KeyboardEventRecorder
 from ..Actions.ActionManager import ActionManagerController
 from ..EventRecorder.EventRecorderManager import EventRecorderController
 
-storageManager= StorageManager()
+
 storage= None
 mousePressAction= None
 mouseMoveAction= None
@@ -35,33 +35,33 @@ def SetupNewFileForWritingEvents():
     random_filename = os.path.join(jsonfiles_directory, fileName)
     
     print("New File Created: {0}".format(random_filename))
-    storageManager.ChangeDataSource(random_filename)
+    StorageController.ChangeDataSource(random_filename)
 
 def SetupStorageManagerProperties(uuid):
     global currRecordingDict
     currRecordingDict[uuid]= dict()
-    storageManager.ChangeDataSource(currRecordingDict)
+    StorageController.ChangeDataSource(currRecordingDict)
 
 def SetupJsonStorage():
     global storage
-    storage= JsonStorage(storageManager.GetDataSource())
+    storage= JsonStorage(StorageController.GetDataSource())
     
-def SetupMouseActions():
+def SetupMouseActions(uuid):
     global mousePressAction
     global mouseMoveAction
     global mouseReleaseAction
     global storage
 
-    mousePressAction= MousePressAction(storage)
-    mouseMoveAction= MouseMoveAction(storage)
-    mouseReleaseAction= MouseReleaseAction(storage)
+    mousePressAction= MousePressAction(StorageController.GetStorageForDocument(uuid))
+    mouseMoveAction= MouseMoveAction(StorageController.GetStorageForDocument(uuid))
+    mouseReleaseAction= MouseReleaseAction(StorageController.GetStorageForDocument(uuid))
  
-def SetupKeyboardActions():
+def SetupKeyboardActions(uuid):
     global keyboardUpAction
     global keyboardDownAction
 
-    keyboardUpAction= KeyboardUpAction(storage)
-    keyboardDownAction= KeyboardDownAction(storage)
+    keyboardUpAction= KeyboardUpAction(StorageController.GetStorageForDocument(uuid))
+    keyboardDownAction= KeyboardDownAction(StorageController.GetStorageForDocument(uuid))
 
 def SetupMouseEventRecorder():
     global mousePressAction
@@ -76,20 +76,18 @@ def SetupKeyboardEventRecorder():
 
     return KeyboardEventRecorder(keyboardUpAction, keyboardDownAction)
 
-
-def saveFile():
-    global storage
-    storage.InternalWrite("abc.json")
-
 def SetupAutomationEventRecorder(uuid):
-    
+ 
     #SetupNewFileForWritingEvents()
     
     EventRecorderController.SetCurrentEventRecordingDocumentID(uuid)
     SetupStorageManagerProperties(uuid)
     ActionManagerController.AddSequenceCounterForUuid(uuid)
+    
     SetupJsonStorage()
-    SetupMouseActions()
-    SetupKeyboardActions()
+    StorageController.AddDocumentForStorage(uuid, storage)
+
+    SetupMouseActions(uuid)
+    SetupKeyboardActions(uuid)
 
     return AutomationRecorder(SetupMouseEventRecorder(), SetupKeyboardEventRecorder())

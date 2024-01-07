@@ -5,13 +5,14 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{c80ee67a-4ec7-411a-817d-b80fbdf24062}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>ScreenAutomation.py</StartupFile>
+    <StartupFile>ApiControllerTests.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <InterpreterId>Global|PythonCore|3.12</InterpreterId>
+    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -64,6 +65,7 @@
     <Compile Include="src\Listener\EventsListener.py" />
     <Compile Include="src\Listener\KeyboardEventsListener.py" />
     <Compile Include="src\Listener\MouseEventsListener.py" />
+    <Compile Include="src\Listener\StorageEventsListener.py" />
     <Compile Include="src\Listener\__init__.py" />
     <Compile Include="src\Replayer\KeyboardEventReplayer.py" />
     <Compile Include="src\Replayer\KeyboardReplayer.py" />
@@ -97,6 +99,9 @@
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.12" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ApiControllerTests.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
 </Project>

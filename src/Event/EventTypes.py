@@ -9,4 +9,5 @@ class EventType(IntEnum):
     eMousePressedAndMoveEvent= 4,
     eKeyboardUpEvent= 5,
     eKeyboardDownEvent=6,
-    eEndingEvent= 7
+    eSaveIntoStorageEvent= 7,
+    eEndingEvent= 8

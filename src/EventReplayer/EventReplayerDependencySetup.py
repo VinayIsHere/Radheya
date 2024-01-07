@@ -21,14 +21,12 @@ keyboardDownAction= None
 mouseReleaseAction= None
 storage= None
 
-def GetJsonFileToReplay():
-    return "abc.json" #this should come from the UI, for now passing from here.
 
-def SetupStorage():
+def SetupStorage(fileToReplay):
     global storageManager
     global storage
 
-    storageManager.ChangeDataSource(GetJsonFileToReplay())
+    storageManager.ChangeDataSource(fileToReplay)
     storage=JsonStorage(storageManager.GetDataSource())
 
 def SetupMouseActions():
@@ -65,9 +63,9 @@ def SetupKeyboardEventReplayer():
 
     return KeyboardEventReplayer(keyboardUpAction, keyboardDownAction)
 
-def SetupEventReaderAndReplayer():
+def SetupEventReaderAndReplayer(fileToReplay):
     
-    SetupStorage()
+    SetupStorage(fileToReplay)
     SetupMouseActions()
     SetupKeyboardActions()
 
