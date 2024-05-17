@@ -110,8 +110,3 @@ def start_replay():
         except Exception as e:
             # Handle other exceptions with a 500 status code
             return jsonify({"error": str(e)}), 500
-
-
-@app.route("/", methods=['GET'])
-def Hello():
-    return "Hello World"
