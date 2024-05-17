@@ -2,8 +2,10 @@ from flask import Flask, request, jsonify
 from src.ApplicationModes import ApplicationModes
 from ScreenAutomation import ScreenRecorderAutomation, ScreenReplayerAutomation
 import time
+from flask_cors import CORS
 
 app= Flask(__name__)
+CORS(app)
 
 ScreenRecorder= None
 ScreenReplayer= None
@@ -41,6 +43,8 @@ def start_event_recording():
             # Extract the application mode from the JSON data
             json_data = request.get_json()
             
+            print(json_data)
+
             app_mode = ApplicationModes(json_data["eventmode"])
 
             # Log the application mode

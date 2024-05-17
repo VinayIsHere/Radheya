@@ -25,8 +25,8 @@ def StartReplayer(uuid, fileToReplay):
     ScreenReplayer.start()
 
 #uuid=StartScreenRecorder()
-#time.sleep(10)
+#time.sleep(30)
 #StopRecorder(uuid)
 
-#StartReplayer("dbd1f073-77c4-4320-bb68-1cbcdb85a6d3", "V:/vinayPersonal/PythonProjects/Radheya/jsonfiles/myjson.json")
-#time.sleep(10)
+StartReplayer("769d5e55-c6c1-463f-b3c3-2024bda9ad58", "V:/vinayPersonal/PythonProjects/Radheya/jsonfiles/myjson.json")
+time.sleep(60)
