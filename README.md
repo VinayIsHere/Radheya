@@ -1,10 +1,9 @@
 **SCREEN ACTIVITY PLAYER**
-This application supports recording of Mouse and keyboard actions of the system and then replaying them back in your system.
-The Aim is to help with do repititive task or doing automation testing and yes for fun too.
+This application supports recording of Mouse and keyboard actions of the system and then replaying them back in your system. The Aim is to help with do repititive task or doing automation testing and yes for fun too.
 
 **Completed Feature**
- * Records Mouse and Keyboard actions.
- * Replay the recorded actions.
+* Records Mouse and Keyboard actions.
+* Replay the recorded actions.
 
 **Feature Scope**
 * Add a UI for this application for the ease of Application use.
@@ -20,8 +19,7 @@ Install Python 3.12 and then install following dependencies.
 then open the visual studio and set ScreenPlayer.py as Startup project and build it.
 
 **How to Run**
-My aim was to make this library accessed through api, so that I can use any web app which supports the defined api for this application can use this project.
-Right now there are following APIs available and the param they need in their get/post request.
+My aim was to make this library accessed through api, so that I can use any web app which supports the defined api for this application can use this project. Right now there are following APIs available and the param they need in their get/post request.
 
 1. **API**:```/api/v1/recordingModes```
    **API Type**: GET
