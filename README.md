@@ -1,9 +1,39 @@
-This is an GUI Automation Tool. 
-Currently supports only Windows.
-It is still in development.
+**SCREEN ACTIVITY PLAYER**
+This application supports recording of Mouse and keyboard actions of the system and then replaying them back in your system.
+The Aim is to help with do repititive task or doing automation testing and yes for fun too.
 
-Aim is to make it having all the functionalities like Squish, but remain open-source.
-Currently supports Recording Keyboard and MouseEvents into json storage.
-And then replay the selected recorded json file.
+**Completed Feature**
+ * Records Mouse and Keyboard actions.
+ * Replay the recorded actions.
 
-It is still in development work, Feel Free to Make PR for feature and bug improvements.
+**Feature Scope**
+* Add a UI for this application for the ease of Application use.
+* Add Image Detection AI Model, which will take Right output screen after the certain actions and will compare it to the actual screen which came up after replaying the same actions for which the truth image was generated.
+* Code Refactoring
+* Specifying the SRS for FrontEnd and BackEnd.
+
+**How to Build**
+Install Python 3.12 and then install following dependencies.
+* flask ```pip install Flask```
+* keyboard ```pip install keyboard ```
+* pynput ```pip install pynput```
+then open the visual studio and set ScreenPlayer.py as Startup project and build it.
+
+**How to Run**
+My aim was to make this library accessed through api, so that I can use any web app which supports the defined api for this application can use this project.
+Right now there are following APIs available and the param they need in their get/post request.
+
+1. **API**:```/api/v1/recordingModes``` **API Type**: GET
+   **PARAM**: nothing
+   **RETURNS**: returns the List of supported modes by the application.
+
+   Description: This api is a GET request and returns the list of modes supported by the application.
+
+2. **API**:```/api/v1/startRecording``` **API Type**: POST
+   **PARAM**: The body of the api request should contains the following information:
+   {"eventmode": mode_number} e.g {"eventmode": 4} ```4=eKeyboardAndMouseEventRecordMode```
+   **RETURNS**: Returns the ```documentId```. This ```documentId``` is the reference for the current recording application. In future when the application supports multiple record or replay operation at the same time. This will help keep track of those. For now it only support only single record or replay operation at a time. but still this ```documentId``` is used to get information about the current ongoing task.
+   
+   Description: This api is a POST request which takes the ```eventmode``` in the body of the request, This event mode decide which operation to start in the application.
+ 
+3. 
