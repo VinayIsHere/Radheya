@@ -44,3 +44,5 @@ My aim was to make this library accessed through api, so that I can use any web 
    **PARAM**: The body of the api request should contains the following information: {"documentid": document_id, "filepath": path} e.g {"documentid": "2e3042eb-c4b1-4137-821f-c15095f7cbb5", "filepath": "V:/vinayPersonal/PythonProjects/Radheya/jsonfiles/myfile.json"}. ```documentId```: document Id for the replayed file, ```filepath```: Path of the replay json file.
    **RETURNS**: 200 Status for success
    **DESCRIPTION**: This reads the json file presents in the path and then replay the actions stored in that file.
+
+So right now as there is no UI available you can use these api either through PostMan or any other APIs testing application.
